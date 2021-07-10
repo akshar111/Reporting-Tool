@@ -1,0 +1,104 @@
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CRM</title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'font.min.css' %}">
+    <!-- Main css -->
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+    
+
+    <!--  Closing alert  -->
+    <script>
+
+        $(document).ready(function() {
+            // show the alert
+            $(document).ready(function () {
+ 
+                window.setTimeout(function() {
+                    $(".alert").fadeTo(1000, 0).slideUp(1000, function(){
+                        $(this).remove(); 
+                    });
+                }, 3000);
+                 
+                });
+        });
+
+    </script>
+
+
+</head>
+<body>
+
+    <div class="main">
+        {% if error_message %}
+            <div class="error-msg alert alert-danger " role="alert">
+                {{error_message}}
+               
+            </div>
+        {% endif %}
+
+        {% for message in messages %}
+        <div class="error-msg alert alert-primary" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}   
+        <!-- Sign in form -->
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                       
+                        <figure><img src="{% static 'signin-image.jpg' %}" alt="sing up image"></figure>
+                       
+                    </div>
+
+                    <div class="signin-form">
+                        <h2 class="form-title">Sign in</h2>
+                        <form method="POST" class="register-form" id="login-form">
+							{% csrf_token %}
+                            <div class="form-group">
+                                <label for="your_name"><i class="fas fa-user material-icons-name"></i></label>
+
+                                <input type="text" name="username" id="your_name" placeholder="Username"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="your_pass"><i class="fas fa-lock material-icons-name"></i></label>
+                                <input type="password" name="password" id="your_pass" placeholder="Password"/>
+                            </div>
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
+                            </div>
+                        </form>
+						
+                
+                      <div class="form-group" style="padding-top:30px;">
+                          <p>
+                         <span> <a href="{% url 'register' %}" style="display: inline;"
+                            class="signup-image-link" >Register</a> </span>
+                             &nbsp;&nbsp;   OR &nbsp;&nbsp;
+                             <span><a href="{% url 'reset_password' %}" style=" display: inline;"
+                                class=" signup-image-link">Forgot Password ?</a></span>
+                          </p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
